@@ -36,7 +36,7 @@ $ node app
 
  - take a picture with a web cam.
  - Put it on the browser screen (canvas I hope).
- - Do face-recognition if easy.
+ - Do face-recognition if easy. (SEE: http://wesbos.com/html5-video-face-detection-canvas-javascript/)
  - Allow operator to position a square if the face-recognition goes batty.
  - Upload pic to server.
 
