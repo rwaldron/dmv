@@ -34,7 +34,11 @@ $ node app
 <img src="http://gyazo.com/371f1171d2e19208f64adbbecb38b15d.png">
 
 
-
+ - take a picture with a web cam.
+ - Put it on the browser screen (canvas I hope).
+ - Do face-recognition if easy.
+ - Allow operator to position a square if the face-recognition goes batty.
+ - Upload pic to server.
 
 
 Built With: grunt, express, socket.io and love
