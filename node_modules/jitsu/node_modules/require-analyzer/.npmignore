@@ -1,0 +1,5 @@
+node_modules/
+node_modules/*
+!test/fixtures
+npm-debug.log
+test/fixtures/socket-io-app/node_modules/*
