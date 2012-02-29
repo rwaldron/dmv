@@ -1,6 +1,37 @@
 # DMV
 
-Node.js powered, WebRTC Delivered video chat. [Canary](http://tools.google.com/dlpage/chromesxs) and [Opera](http://dev.opera.com/articles/view/labs-more-fun-using-the-web-with-getusermedia-and-native-pages/)
+Node.js powered, WebRTC Delivered, 100% JavaScript camera > web > server Photobooth-style image capture program. [Canary](http://tools.google.com/dlpage/chromesxs) and [Opera](http://dev.opera.com/articles/view/labs-more-fun-using-the-web-with-getusermedia-and-native-pages/)
+
+## Getting Started
+Download the [production version][min] or the [development version][max].
+
+[min]: https://raw.github.com/rwldrn/dmv/master/public/javascripts/dmv.min.js
+[max]: https://raw.github.com/rwldrn/dmv/master/public/javascripts/dmv.js
+
+In your web page:
+
+```html
+<script src="dmv.min.js"></script>
+<script>
+
+// ...when the dom is ready, with whatever your poison is...
+
+DMV.init( selector, socket );
+
+// `selector` is any valid CSS Selector to locate your empty container in the DOM
+
+// `socket` is your socket.io object, which you're on your own for creating.
+
+</script>
+```
+
+Run Application with:
+
+```bash
+$ node app
+```
+
+## Development
 
 
 Dependency: `grunt`
@@ -21,12 +52,6 @@ Verify and Build code with:
 
 ```bash
 $ grunt
-```
-
-Run Application with:
-
-```bash
-$ node app
 ```
 
 

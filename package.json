@@ -1,7 +1,7 @@
 {
   "name": "dmv",
   "description": "Node.js powered, WebRTC Delivered video chat",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://github.com/rwldrn/dmv",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
