@@ -27,16 +27,16 @@ exports["Operator"] = {
     test.equal(Operator.id().length, 36, "Operator.id() returns a 36 character id");
     test.done();
   },
-  "Operator.fixture()": function(test) {
+  "Operator.prototype.fixture()": function(test) {
     test.expect(2);
     // tests here
-    test.equal(typeof Operator.fixture, "function", "Operator.fixture() is a function");
+    test.equal(typeof Operator.prototype.fixture, "function", "Operator.prototype.fixture() is a function");
 
-    // This is a weird/dumb test, but I'm too tired to write qOperator tests right now
+    // This is a weird/dumb test - need to write full on jsdom tests
     try {
-      Operator.fixture("img", 1);
+      Operator.prototype.fixture.call({}, "img", 1);
     } catch(e) {
-      test.equal(e.toString(), "ReferenceError: document is not defined", "Operator.fixture() will attempt to call document methods");
+      test.equal(e.toString(), "ReferenceError: document is not defined", "Operator.prototype.fixture() will attempt to call document methods");
     }
     // test.equal(Operator.id().length, 36, "Operator.id() returns a 36 character id");
     test.done();
