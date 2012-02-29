@@ -34,11 +34,24 @@ $ node app
 <img src="http://gyazo.com/371f1171d2e19208f64adbbecb38b15d.png">
 
 
- - take a picture with a web cam.
- - Put it on the browser screen (canvas I hope).
+## YAY!
+
+These were taken with **dmv**
+
+<img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547437580.png">
+<img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547472702.png">
+
+
+## What
+
+
+ - ✔  take a picture with a web cam.
+ - ✔  Put it on the browser screen (canvas I hope).
  - Do face-recognition if easy. (SEE: http://wesbos.com/html5-video-face-detection-canvas-javascript/)
  - Allow operator to position a square if the face-recognition goes batty.
- - Upload pic to server.
+ - ✔  Click to capture
+ - ✔  Upload pic to server. (Auto with socket.io)
+ - ✔  Save captured image on server!
 
 
 Built With: grunt, express, socket.io and love
