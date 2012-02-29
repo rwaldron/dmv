@@ -1,12 +1,4 @@
-/*! dmv - v0.1.0 - 2/29/2012
-* https://github.com/rwldrn/dmv
-* Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
-
-/*! dmv - v0.1.0 - 2/28/2012
-* https://github.com/rwldrn/dmv
-* Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
-
-/*! dmv - v0.1.0 - 2/5/2012
+/*! dmv - v0.2.0 - 2/29/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
