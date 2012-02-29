@@ -31,7 +31,7 @@ $ node app
 
 
 
-<img src="http://gyazo.com/371f1171d2e19208f64adbbecb38b15d.png">
+<img src="http://cache.gyazo.com/371f1171d2e19208f64adbbecb38b15d.png">
 
 
 ## YAY!
