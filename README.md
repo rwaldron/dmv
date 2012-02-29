@@ -85,7 +85,7 @@ Built With: grunt, express, socket.io and love
 ## Contributing
 Style guide: [idiomatic.js](https://github.com/rwldrn/idiomatic.js), Lint and test your code using [grunt](https://github.com/cowboy/grunt).
 
-_Also, please don't edit files in the "dist" or /public/javascript/ subdirectories as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
+_Also, please **don't** edit files in the **"dist"** or **"/public/javascript/"** subdirectories as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
 
 ## License
 Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
