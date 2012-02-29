@@ -1,4 +1,4 @@
-/*! dmv - v0.1.0 - 2/14/2012
+/*! dmv - v0.1.0 - 2/28/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -121,6 +121,8 @@ var // Localize navigator for use within getUserMedia
   };
 
   Operator.exists = function( id ) {
+    // This voodoo is used to check for the existance of a fixture that
+    // might have a prefix such as video_, img_, canvas_
     return !!document.querySelectorAll( "[id$='" + id + "']" ).length;
   };
 
