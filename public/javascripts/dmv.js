@@ -108,7 +108,7 @@ var // Localize navigator for use within getUserMedia
 
     node.id = nodeName[0] + "_" + id;
 
-    console.log( nodeName, window.innerWidth, window.innerHeight );
+    // console.log( nodeName, window.innerWidth, window.innerHeight );
 
     node.style.width = window.innerWidth + "px";// "320px";
     // // node.style.height = window.innerHeight + "px";//"280px";
