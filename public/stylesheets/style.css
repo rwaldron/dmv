@@ -1,8 +1,15 @@
 body {
+  padding: 0px;
+  margin: 0px;
 /*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+video {
+  padding: 0px;
+  margin: 0px;
 }
