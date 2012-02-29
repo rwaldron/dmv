@@ -1,6 +1,6 @@
 # DMV
 
-Node.js powered, WebRTC Delivered, 100% JavaScript camera > web > server Photobooth-style image capture program. [Canary](http://tools.google.com/dlpage/chromesxs) and [Opera](http://dev.opera.com/articles/view/labs-more-fun-using-the-web-with-getusermedia-and-native-pages/)
+Node.js powered, WebRTC connected, 100% JavaScript, Camera > Web > Server Photobooth-style image capture program. [Canary](http://tools.google.com/dlpage/chromesxs) and [Opera](http://dev.opera.com/articles/view/labs-more-fun-using-the-web-with-getusermedia-and-native-pages/)
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
