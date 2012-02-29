@@ -1,5 +1,3 @@
 $(function() {
-  DMV.init(
-    io.connect()
-  );
+  DMV.init( "#container", io.connect() );
 });
