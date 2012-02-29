@@ -1,3 +1,7 @@
+/*! dmv - v0.1.0 - 2/29/2012
+* https://github.com/rwldrn/dmv
+* Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
+
 /*! dmv - v0.1.0 - 2/28/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
@@ -72,7 +76,6 @@ var // Localize navigator for use within getUserMedia
     var capture = this.canvas.toDataURL(),
         image = document.querySelector( "#i_" + this.id );
 
-    console.log( image );
     if ( !image ) {
       image = Operator.fixture( "img", this.id );
     }
@@ -103,6 +106,7 @@ var // Localize navigator for use within getUserMedia
 
     node.id = nodeName[0] + "_" + id;
 
+    console.log( document.offsetWidth );
     node.style.width = "320px";
     node.style.height = "280px";
 
@@ -159,7 +163,7 @@ var // Localize navigator for use within getUserMedia
       this.listen();
     },
     listen: function() {
-      var capture = document.querySelector("#capture");
+      var capture = document.querySelector("video");
 
       capture.addEventListener( "click", DMV.operator.capture.bind( DMV.operator ), false );
     }

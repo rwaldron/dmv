@@ -1,5 +1,6 @@
 var express = require("express"),
-    socket = require("socket.io");
+    socket = require("socket.io"),
+    fs = require("fs");
 
 var app = express.createServer(),
     io = socket.listen( app );
@@ -21,6 +22,7 @@ app.get( "/", function( req, res ) {
     title: "DMV"
   });
 });
+
 
 // Connection Pool
 var connections = {
@@ -47,18 +49,21 @@ io.sockets.on( "connection", function( client ) {
 
   client.on( "capture", function( data ) {
 
+    var file, buffer,
+        filepath = "saved/" + Date.now() + ".png";
 
+    // Create a buffer from the base64 encoded string
+    buffer = new Buffer( data.captured.replace(/^data:image\/\w+;base64,/, ""), "base64" );
 
+    // Save to new image file
+    file = fs.openSync( filepath, "w+" );
 
-
-    // Do Stuff with captured data uri
-    console.log( data.captured.length );
-
-
-
-
-
-
+    // Output regenerated, compressed code
+    fs.write( file, buffer, 0, buffer.length, 0, function( err, data ) {
+      if ( err == null ) {
+        console.log( "Saved: http://localhost:8080/" + filepath );
+      }
+    });
   });
 });
 
