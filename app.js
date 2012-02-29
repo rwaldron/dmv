@@ -50,7 +50,7 @@ io.sockets.on( "connection", function( client ) {
   client.on( "capture", function( data ) {
 
     var file, buffer,
-        filepath = "saved/" + Date.now() + ".png";
+        filepath = "saved/" + data.id + "-" + Date.now() + ".png";
 
     // Create a buffer from the base64 encoded string
     buffer = new Buffer( data.captured.replace(/^data:image\/\w+;base64,/, ""), "base64" );
