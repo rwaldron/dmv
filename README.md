@@ -57,4 +57,11 @@ These were taken with **dmv**. When you click on the camera display surface, the
 
 Built With: grunt, express, socket.io and love
 
-All code _must_ confirm to https://github.com/rwldrn/idiomatic.js
+## Contributing
+Style guide: [idiomatic.js](https://github.com/rwldrn/idiomatic.js), Lint and test your code using [grunt](https://github.com/cowboy/grunt).
+
+_Also, please don't edit files in the "dist" or /public/javascript/ subdirectories as they are generated via grunt. You'll find source code in the "lib" subdirectory!_
+
+## License
+Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>
+Licensed under the MIT license.
