@@ -36,10 +36,11 @@ $ node app
 
 ## YAY!
 
-These were taken with **dmv**
+These were taken with **dmv**. When you click on the camera display surface, the image is captured and sent to a Node.js server via Socket.IO where a png is created and saved in the ./saved/ directory.
 
 <img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547437580.png">
 <img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547472702.png">
+
 
 
 ## What
