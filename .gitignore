@@ -1,4 +1,4 @@
 .DS_Store
 *.sublime-*
 dist/
-saved/*.png
+public/saved/*.png
