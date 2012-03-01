@@ -9,5 +9,7 @@ $(function() {
     return;
   }
 
+  $("#obsolete").hide();
+
   DMV.init( "#container", io.connect() );
 });

@@ -12,7 +12,7 @@ var // Localize navigator for use within getUserMedia
     // for helping to outline proper Opera support
     getUserMedia = function( callback ) {
       var getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia,
-          media = navigator.getUserMedia ? { video: true, audio: true } : "video audio";
+          media = navigator.getUserMedia ? { video: true, audio: true } : "video,audio";
 
       getMedia.call( navigator, media, function( data ) {
         var stream = window.webkitURL ? window.webkitURL.createObjectURL( data ) : data;
