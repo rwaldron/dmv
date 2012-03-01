@@ -24,6 +24,13 @@ app.get( "/", function( req, res ) {
   });
 });
 
+app.get( "/saved", function( req, res ) {
+  res.render( "saved", {
+    title: "DMV"
+  });
+});
+
+
 // Connection Pool
 var connections = {
   // uid: object
@@ -65,7 +72,41 @@ io.sockets.on( "connection", function( client ) {
       }
     });
   });
+
+
+  client.on( "list:request", function( data ) {
+
+    var list = [],
+        id = data.id,
+        filepath = "public/saved/";
+
+    fs.readdir( filepath, function( err, files ) {
+      files.forEach(function( file, index ) {
+
+        if ( (new RegExp("^" + id )).test(file) ) {
+          list.push( file );
+
+          // Every 5th image, send to client and reset the list
+          if ( index % 5 === 0 ) {
+            toClient( list );
+
+            list = [];
+          }
+        }
+      });
+    });
+  });
+
+  function toClient( list ) {
+    client.emit( "list:response", {
+      files: list
+    });
+  }
 });
+
+
+
+
 
 app.listen(3000);
 portInUse = app.address().port;

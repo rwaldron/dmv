@@ -17,3 +17,20 @@ video {
 #obsolete {
   display: none;
 }
+
+#saved {
+  width: 400px;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#saved li {
+ display: inline;
+}
+
+#saved li img {
+  float: left;
+  width: 5em;
+  padding: 1em;
+}
