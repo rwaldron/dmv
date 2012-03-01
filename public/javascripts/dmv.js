@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0 - 2/29/2012
+/*! dmv - v0.2.0 - 3/1/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -105,7 +105,7 @@ var // Localize navigator for use within getUserMedia
 
     node.id = nodeName[0] + "_" + id;
 
-    node.style.width = window.innerWidth + "px";
+    node.style.width = (window.innerWidth - 15) + "px";
 
     // TODO: make this definable
     if ( !this.container ) {
