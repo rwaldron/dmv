@@ -3,7 +3,8 @@ var express = require("express"),
     fs = require("fs");
 
 var app = express.createServer(),
-    io = socket.listen( app );
+    io = socket.listen( app ),
+    portInUse;
 
 // Express app Configuration
 app.configure(function() {
@@ -22,7 +23,6 @@ app.get( "/", function( req, res ) {
     title: "DMV"
   });
 });
-
 
 // Connection Pool
 var connections = {
@@ -50,7 +50,7 @@ io.sockets.on( "connection", function( client ) {
   client.on( "capture", function( data ) {
 
     var file, buffer,
-        filepath = "saved/" + data.id + "-" + Date.now() + ".png";
+        filepath = "public/saved/" + data.id + "-" + Date.now() + ".png";
 
     // Create a buffer from the base64 encoded string
     buffer = new Buffer( data.captured.replace(/^data:image\/\w+;base64,/, ""), "base64" );
@@ -61,11 +61,13 @@ io.sockets.on( "connection", function( client ) {
     // Output regenerated, compressed code
     fs.write( file, buffer, 0, buffer.length, 0, function( err, data ) {
       if ( err == null ) {
-        console.log( "Saved: http://localhost:8080/" + filepath );
+        console.log( "Saved: http://localhost:" + portInUse + "/" + filepath );
       }
     });
   });
 });
 
 app.listen(3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+portInUse = app.address().port;
+
+console.log("Express server listening on port %d in %s mode", portInUse, app.settings.env);
