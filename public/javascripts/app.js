@@ -27,9 +27,10 @@ $(function() {
     }).on( "list:response", function( data ) {
       if ( data.files.length ) {
         data.files.forEach(function( file ) {
-          // TODO: make some damn templates for this
-          $("#saved").append("<li><a href='" + file + "'><img src='" + file + "'></a></li>");
-
+          if ( (new RegExp("^" + id )).test(file) ) {
+            // TODO: make some damn templates for this
+            $("#saved").append("<li><a href='" + file + "'><img src='" + file + "'></a></li>");
+          }
         });
       }
     });

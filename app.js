@@ -57,7 +57,8 @@ io.sockets.on( "connection", function( client ) {
   client.on( "capture", function( data ) {
 
     var file, buffer,
-        filepath = "public/saved/" + data.id + "-" + Date.now() + ".png";
+        filename = data.id + "-" + Date.now() + ".png",
+        filepath = "public/saved/" + filename;
 
     // Create a buffer from the base64 encoded string
     buffer = new Buffer( data.captured.replace(/^data:image\/\w+;base64,/, ""), "base64" );
@@ -68,37 +69,44 @@ io.sockets.on( "connection", function( client ) {
     // Output regenerated, compressed code
     fs.write( file, buffer, 0, buffer.length, 0, function( err, data ) {
       if ( err == null ) {
+        // Stream new file name to client
+        toClient([ filename ]);
+
         console.log( "Saved: http://localhost:" + portInUse + "/" + filepath );
       }
     });
   });
 
+  client.on( "list:request", streamList );
 
-  client.on( "list:request", function( data ) {
-
-    var list = [],
+  function streamList( data ) {
+    var size,
+        list = [],
         id = data.id,
         filepath = "public/saved/";
 
     fs.readdir( filepath, function( err, files ) {
+      files = files.filter(function( file ) { return (new RegExp("^" + id )).test( file ); });
+      size = files.length;
+
       files.forEach(function( file, index ) {
+        // Push into array for streaming
+        list.push( file );
 
-        if ( (new RegExp("^" + id )).test(file) ) {
-          list.push( file );
+        // Every 5th image, send to client and reset the list
+        // If we've reached the end, send to client and reset the list
+        if ( index % 5 === 0 || index === size - 1 ) {
+          toClient( list );
 
-          // Every 5th image, send to client and reset the list
-          if ( index % 5 === 0 ) {
-            toClient( list );
-
-            list = [];
-          }
+          list = [];
         }
       });
     });
-  });
+  }
 
   function toClient( list ) {
-    client.emit( "list:response", {
+    //console.log( client );
+    io.sockets.emit( "list:response", {
       files: list
     });
   }
