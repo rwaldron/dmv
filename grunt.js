@@ -41,6 +41,7 @@ config.init({
       browser: true
     },
     globals: {
+      window: true,
       navigator: true,
       requestAnimationFrame: true,
       jQuery: true,
