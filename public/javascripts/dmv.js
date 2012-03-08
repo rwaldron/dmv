@@ -2,26 +2,9 @@
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
-(function( exports ) {
+(function( window, navigator ) {
 
-var // Localize navigator for use within getUserMedia
-    navigator = exports.navigator,
-
-    // Create a reasonable getUserMedia shim that covers support for the two existing
-    // getUserMedia implementations. Thanks to Mike Taylr's http://miketaylr.com/photobooth/
-    // for helping to outline proper Opera support
-    getUserMedia = function( callback ) {
-      var getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia,
-          media = navigator.getUserMedia ? { video: true, audio: true } : "video,audio";
-
-      getMedia.call( navigator, media, function( data ) {
-        var stream = window.webkitURL ? window.webkitURL.createObjectURL( data ) : data;
-
-        callback( stream );
-      });
-    },
-
-    // Program initializers
+var  // Program initializers
     Operator, DMV;
 
   // ---- Program ---- //
@@ -58,7 +41,8 @@ var // Localize navigator for use within getUserMedia
     // Store datauri's received from stream
     this.dataUri = "";
 
-    getUserMedia(function( stream ) {
+    navigator.getUserMedia({ video: true, audio: true }, function( stream ) {
+    //getUserMedia("video, audio", function( stream ) {
       // Attach user media stream to video container source
       this.media.src = stream;
 
@@ -167,8 +151,59 @@ var // Localize navigator for use within getUserMedia
     }
   };
 
-  exports.DMV = DMV;
-  exports.Operator = Operator;
+  window.DMV = DMV;
+  window.Operator = Operator;
 
 
-} (typeof exports === "object" && exports || this) );
+} (typeof window === "object" && window || this, this.navigator ) );
+
+(function( window, navigator ) {
+  // 2012-03-08 Inspired by https://gist.github.com/f2ac64ed7fc467ccdfe3
+
+  // If unprefix.js is available, use it.
+  // https://github.com/rwldrn/unprefix.js
+  // Otherwise...
+  if ( window.unprefix && window.unprefix.cached ) {
+    // Thanks to Mike Taylr for typing this
+    // https://gist.github.com/f2ac64ed7fc467ccdfe3
+    // normalize window.URL
+    if ( !window.URL ) {
+      window.URL = window.webkitURL || window.msURL || window.oURL;
+    }
+    // normalize navigator.getUserMedia
+    if ( !navigator.getUserMedia ) {
+      navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    }
+  }
+
+  var spec = true,
+      getUserMedia = navigator.getUserMedia;
+
+  try {
+    navigator.getUserMedia({ video: true, audio: true }, function() {});
+  } catch(e) {
+    spec = false;
+  }
+
+  navigator.getUserMedia = function( opts, callback, errback ) {
+    var options = opts,
+        // Create guard against bogus options
+        safe = { video: 1, audio: 1 };
+
+    if ( !spec ) {
+      options = Object.keys( opts ).filter(function( key ) {
+        return this[ key ] && safe[ key ];
+      }, opts ).join(",");
+    }
+
+    getUserMedia.call( navigator, options, function( stream ) {
+      //  Standard stream
+      if ( stream.label && stream.readyState === 1 ) {
+        stream = window.URL.createObjectURL( stream );
+      }
+
+      callback( stream );
+    }, errback || function() {});
+  };
+
+} (typeof window === "object" && window || this, this.navigator || {} ) );
