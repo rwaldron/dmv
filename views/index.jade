@@ -1,8 +1,32 @@
-#obsolete
-  p Your browser is soon to be obsolete.
-  a(href="http://weblog.bocoup.com/javascript-webrtc-opera-mobile-12/") Find out more
+div(class="navbar navbar-fixed-top")
+  div(class="navbar-inner")
+    div(class="container")
+      a(class="brand", href="#") DMV
 
-#view-saved
-  a(href="/saved/", target="_blank") Saved Photos
+div(id="take-photo", class="span1")
+  a(class="btn btn-large btn-danger", href="#")
+    b(class="icon-camera icon-white")
+
+
+
+div(id="saved-photo", class="row navbar-inner")
+  ul#saved
+
 
 #container
+
+
+div(class="container")
+  div(id="obsolete", class="row")
+    h1 Your browser will soon be obsolete.
+
+    h3 To use this demo, you will need:
+
+    dl
+      dd
+        a(href="http://dev.opera.com/labs", target="_blank") Opera Labs Camera build
+      dd
+        a(href="http://tools.google.com/dlpage/chromesxs", target="_blank") Google Chrome Canary
+
+    h3
+      a(href="http://weblog.bocoup.com/javascript-webrtc-opera-mobile-12/") Find out more

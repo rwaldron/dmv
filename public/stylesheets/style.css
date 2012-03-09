@@ -14,15 +14,37 @@ video {
   margin: 0px;
 }
 
+canvas {
+  position: absolute;
+  top: -10000px;
+  left: -10000px;
+}
+
 #obsolete {
+  margin-top: 100px;
   display: none;
 }
 
+#container {
+  margin-top: -18px;
+}
+
+#saved-photo {
+  position: fixed;
+  left: 0px !important;
+  right: 0px !important;
+  bottom: 0px !important;
+  height: 90px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 #saved {
-  width: 400px;
+  width: 100%;
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin: 0 15px;
 }
 
 #saved li {
@@ -31,8 +53,18 @@ video {
 
 #saved li img {
   float: left;
-  width: 5em;
-  padding: 1em;
+  width: 6.5em;
+  padding: .6em .7em 0 0;
+}
+#saved li img:first {
+  padding-left: -1px;
+}
+
+
+#take-photo {
+  position: fixed;
+  right: 20px;
+  z-index: 9;
 }
 
 #view-saved {
