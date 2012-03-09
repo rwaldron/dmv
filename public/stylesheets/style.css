@@ -34,3 +34,13 @@ video {
   width: 5em;
   padding: 1em;
 }
+
+#view-saved {
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 9;
+  float: left;
+  width: 10em;
+  padding: 10px;
+}
