@@ -116,7 +116,7 @@ io.sockets.on( "connection", function( client ) {
 
 
 
-app.listen(3000);
-portInUse = app.address().port;
+app.listen( process.env.PORT || 3000 );
+portInUse = app.address() ? app.address().port : 80;
 
 console.log("Express server listening on port %d in %s mode", portInUse, app.settings.env);
