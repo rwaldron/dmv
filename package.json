@@ -1,7 +1,7 @@
 {
   "name": "dmv",
-  "description": "Node.js powered, WebRTC connected, 100% JavaScript, Camera > Web > Server Photobooth-style image capture program.",
-  "version": "0.2.0-8",
+  "description": "Node.js powered, Jitsu Hosted, WebRTC connected, 100% JavaScript, Camera > Web > Server Photobooth-style image capture program.",
+  "version": "0.2.0-9",
   "homepage": "https://github.com/rwldrn/dmv",
   "author": {
     "name": "Rick Waldron <waldron.rick@gmail.com>",
