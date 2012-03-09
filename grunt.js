@@ -9,8 +9,8 @@ config.init({
       ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
   },
   concat: {
-    'dist/dmv.js': ['<banner>', '<file_strip_banner:lib/dmv.js>', '<file_strip_banner:lib/gum.js>'],
-    'public/javascripts/dmv.js': ['<banner>', '<file_strip_banner:lib/dmv.js>', '<file_strip_banner:lib/gum.js>']
+    'dist/dmv.js': ['<banner>', '<file_strip_banner:lib/dmv.js>'],
+    'public/javascripts/dmv.js': ['<banner>', '<file_strip_banner:lib/dmv.js>']
   },
   min: {
     'dist/dmv.min.js': ['<banner>', 'dist/dmv.js'],
