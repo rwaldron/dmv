@@ -1,5 +1,5 @@
 body {
-  padding: 0px;
+  padding-top: 40px;
   margin: 0px;
 /*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -26,7 +26,7 @@ canvas {
 }
 
 #container {
-  margin-top: -18px;
+
 }
 
 #saved-photo {
@@ -34,7 +34,7 @@ canvas {
   left: 0px !important;
   right: 0px !important;
   bottom: 0px !important;
-  height: 90px;
+  height: 100px;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -53,20 +53,18 @@ canvas {
 
 #saved li img {
   float: left;
-  width: 6.5em;
+  width: 7em;
   padding: .6em .7em 0 0;
 }
 #saved li img:first {
   padding-left: -1px;
 }
-
-
 #take-photo {
   position: fixed;
-  right: 20px;
+  right: 0px;
+  top: 50px;
   z-index: 9;
 }
-
 #view-saved {
   position: fixed;
   top: 0px;

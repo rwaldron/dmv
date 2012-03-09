@@ -1,23 +1,32 @@
-div(class="navbar navbar-fixed-top")
-  div(class="navbar-inner")
-    div(class="container")
-      a(class="brand", href="#") DMV
+div.navbar.navbar-fixed-top
+  div.navbar-inner
+    div.container-fluid
+      a.btn.btn-navbar(data-toggle="collapse",data-target=".nav-collapse")
+        span.icon-bar
 
-div(id="take-photo", class="span1")
-  a(class="btn btn-large btn-danger", href="#")
-    b(class="icon-camera icon-white")
+      a.brand(href="#") DMV
+
+      div.nav-collapse
+        ul.nav
+          li
+            a(href="https://github.com/rwldrn/dmv") code@github
+
+
+div#take-photo.span1
+  a.btn.btn-large.btn-danger(href="#")
+    b.icon-camera.icon-white
 
 
 
-div(id="saved-photo", class="row navbar-inner")
+div#saved-photo.row.navbar-inner
   ul#saved
 
 
 #container
 
 
-div(class="container")
-  div(id="obsolete", class="row")
+div.container
+  div#obsolete.row
     h1 Your browser will soon be obsolete.
 
     h3 To use this demo, you will need:

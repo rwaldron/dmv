@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0-8 - 3/9/2012
+/*! dmv - v0.2.0-10 - 3/9/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -89,7 +89,7 @@ var  // Program initializers
 
     node.id = nodeName[0] + "_" + id;
 
-    node.style.width = (window.innerWidth - 15) + "px";
+    node.style.width = window.innerWidth + "px";
 
     // TODO: make this definable
     if ( !this.container ) {
