@@ -26,13 +26,19 @@ $(function() {
   socket.emit( "list:request", {
     id: id
   }).on( "list:response", function( data ) {
+    var url;
     if ( data.files.length ) {
       data.files.forEach(function( file ) {
         if ( (new RegExp( "^" + id )).test(file) ) {
           // TODO: make some damn templates for this
           // TODO: be less sloppy about this DOM access
+          url = "http://c309459.r59.cf1.rackcdn.com/" + file;
+
           $saved.prepend(
-            "<li><a href='/saved/" + file + "' target='_blank'><img src='/saved/" + file + "'></a></li>"
+            [
+              "<li><a href='" + url + "' target='_blank'>",
+              "<img src='" + url + "'></a></li>"
+            ].join("")
           );
         }
       });
