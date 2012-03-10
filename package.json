@@ -21,11 +21,13 @@
     }
   ],
   "dependencies": {
+    "cloudfiles": ">= 0.3.3",
     "express": "2.5.6",
     "jade": ">= 0.0.1",
     "socket.io": "0.8.7"
   },
   "devDependencies": {
+    "cloudfiles": ">= 0.3.3",
     "grunt": "~0.1.0",
     "express": "2.5.6",
     "socket.io": "0.8.7",
