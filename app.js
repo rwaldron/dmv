@@ -1,10 +1,29 @@
 var express = require("express"),
     socket = require("socket.io"),
-    fs = require("fs");
+    fs = require("fs"),
+    cloudfiles = require("cloudfiles");
 
-var app = express.createServer(),
+var portInUse,
+    app = express.createServer(),
     io = socket.listen( app ),
-    portInUse;
+    cloudConf = JSON.parse( fs.readFileSync( __dirname + "/.config", "utf-8" ) ),
+    cloud = cloudfiles.createClient({
+      auth: {
+        username: cloudConf.username,
+        apiKey: cloudConf.apiKey
+      }
+    });
+
+cloud.setAuth(function() {
+  // console.log( cloud );
+  console.log( "Authorized Cloud Files" );
+  // cloud.getContainer( "dmv", function( err, container ) {
+  //   container.getFiles(function( err, files ) {
+  //     console.log( files );
+  //   });
+  // });
+});
+
 
 // Express app Configuration
 app.configure(function() {
@@ -69,10 +88,17 @@ io.sockets.on( "connection", function( client ) {
     // Output regenerated, compressed code
     fs.write( file, buffer, 0, buffer.length, 0, function( err, data ) {
       if ( err == null ) {
-        // Stream new file name to client
-        toClient([ filename ]);
 
-        console.log( "Saved: http://localhost:" + portInUse + "/" + filepath );
+        cloud.addFile( cloudConf.container, { remote: filename, local: filepath }, function( err, uploaded ) {
+          if ( uploaded ) {
+            // File has been uploaded
+            console.log( "Uploaded to Cloud Files: " + filename  );
+
+            // Stream new file name to client
+            toClient([ filename ]);
+            // TODO: Delete local copy once index store is in place
+          }
+        });
       }
     });
   });
@@ -82,30 +108,33 @@ io.sockets.on( "connection", function( client ) {
   function streamList( data ) {
     var size,
         list = [],
-        id = data.id,
-        filepath = "public/saved/";
+        id = data.id;
 
-    fs.readdir( filepath, function( err, files ) {
-      files = files.filter(function( file ) { return (new RegExp("^" + id )).test( file ); });
-      size = files.length;
+    // Request Container and Files from Cloud Files
+    cloud.getContainer( cloudConf.container, function( err, container ) {
+      container.getFiles(function( err, files ) {
 
-      files.forEach(function( file, index ) {
-        // Push into array for streaming
-        list.push( file );
+        files = files.filter(function( file ) { return (new RegExp("^" + id )).test( file.name ); });
+        size = files.length;
 
-        // Every 5th image, send to client and reset the list
-        // If we've reached the end, send to client and reset the list
-        if ( index % 5 === 0 || index === size - 1 ) {
-          toClient( list );
+        files.forEach(function( file, index ) {
+          // Push into array for streaming
+          list.push( file.name );
 
-          list = [];
-        }
+          // Every 5th image, send to client and reset the list
+          // If we've reached the end, send to client and reset the list
+          if ( index % 5 === 0 || index === size - 1 ) {
+            toClient( list );
+
+            // Clear file array
+            list = [];
+          }
+        });
       });
     });
   }
 
   function toClient( list ) {
-    //console.log( client );
     io.sockets.emit( "list:response", {
       files: list
     });
