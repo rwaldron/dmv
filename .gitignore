@@ -2,3 +2,4 @@
 *.sublime-*
 dist/
 public/saved/*.png
+.key
