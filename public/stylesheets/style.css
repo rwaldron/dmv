@@ -3,6 +3,7 @@ body {
   margin: 0px;
 /*  padding: 50px;*/
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: black;
 }
 
 a {
@@ -26,7 +27,7 @@ canvas {
 }
 
 #container {
-
+  margin: 0 auto;
 }
 
 #saved-photo {
