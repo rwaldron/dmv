@@ -3,26 +3,32 @@ var express = require("express"),
     fs = require("fs"),
     cloudfiles = require("cloudfiles");
 
-var portInUse,
-    app = express.createServer(),
-    io = socket.listen( app ),
-    cloudConf = JSON.parse( fs.readFileSync( __dirname + "/.config", "utf-8" ) ),
-    cloud = cloudfiles.createClient({
-      auth: {
-        username: cloudConf.username,
-        apiKey: cloudConf.apiKey
-      }
-    });
 
-cloud.setAuth(function() {
-  // console.log( cloud );
-  console.log( "Authorized Cloud Files" );
-  // cloud.getContainer( "dmv", function( err, container ) {
-  //   container.getFiles(function( err, files ) {
-  //     console.log( files );
-  //   });
-  // });
-});
+var portInUse, cloudConf, cloud,
+    app = express.createServer(),
+    io = socket.listen( app );
+
+
+if ( process.env.NODE_ENV ) {
+  cloudConf = JSON.parse( fs.readFileSync( __dirname + "/.config", "utf-8" ) );
+
+  cloud = cloudfiles.createClient({
+    auth: {
+      username: cloudConf.username,
+      apiKey: cloudConf.apiKey
+    }
+  });
+
+  cloud.setAuth(function() {
+    // console.log( cloud );
+    console.log( "Authorized Cloud Files" );
+    // cloud.getContainer( "dmv", function( err, container ) {
+    //   container.getFiles(function( err, files ) {
+    //     console.log( files );
+    //   });
+    // });
+  });
+}
 
 
 // Express app Configuration
@@ -89,60 +95,76 @@ io.sockets.on( "connection", function( client ) {
     fs.write( file, buffer, 0, buffer.length, 0, function( err, data ) {
       if ( err == null ) {
 
-        cloud.addFile( cloudConf.container, { remote: filename, local: filepath }, function( err, uploaded ) {
-          if ( uploaded ) {
-            // File has been uploaded
-            console.log( "Uploaded to Cloud Files: " + filename  );
+        if ( cloud ) {
+          cloud.addFile( cloudConf.container, { remote: filename, local: filepath }, function( err, uploaded ) {
+            if ( uploaded ) {
+              // File has been uploaded
+              console.log( "Uploaded to Cloud Files: " + filename  );
 
-            // Stream new file name to client
-            toClient([ filename ]);
-            // TODO: Delete local copy once index store is in place
-          }
-        });
+              // Stream new file name to client
+              streamToClient([ filename ]);
+            }
+          });
+        } else {
+          streamToClient([ filename ]);
+        }
+
+        // TODO: Delete local copy once index store is in place
       }
     });
   });
 
   client.on( "list:request", streamList );
 
+  // TODO: Refactor all of this code, it stinks.
   function streamList( data ) {
-    var size,
-        list = [],
-        id = data.id;
+    var id = data.id,
+        filepath = "public/saved/";
 
-    // Request Container and Files from Cloud Files
-    cloud.getContainer( cloudConf.container, function( err, container ) {
-      container.getFiles(function( err, files ) {
-
-        files = files.filter(function( file ) { return (new RegExp("^" + id )).test( file.name ); });
-        size = files.length;
-
-        files.forEach(function( file, index ) {
-          // Push into array for streaming
-          list.push( file.name );
-
-          // Every 5th image, send to client and reset the list
-          // If we've reached the end, send to client and reset the list
-          if ( index % 5 === 0 || index === size - 1 ) {
-            toClient( list );
-
-            // Clear file array
-            list = [];
-          }
+    if ( cloud ) {
+      // Request Container and Files from Cloud Files
+      cloud.getContainer( cloudConf.container, function( err, container ) {
+        container.getFiles(function( err, files ) {
+          streamFilter( id, files.map(function( data ) { return data.name; }) );
         });
       });
+    } else {
+      // Look locally for development
+      fs.readdir( filepath, function( err, files ) {
+        streamFilter( id, files );
+      });
+    }
+  }
+
+  function streamFilter( id, files ) {
+    var size,
+        list = [];
+
+    files = files.filter(function( file ) { return (new RegExp("^" + id )).test( file ); });
+    size = files.length;
+
+    files.forEach(function( file, index ) {
+      // Push into array for streaming
+      list.push( file );
+
+      // Every 5th image, send to client and reset the list
+      // If we've reached the end, send to client and reset the list
+      if ( index % 5 === 0 || index === size - 1 ) {
+        streamToClient( list );
+
+        // Clear file array
+        list = [];
+      }
     });
   }
 
-  function toClient( list ) {
+  function streamToClient( list ) {
     io.sockets.emit( "list:response", {
+      path: cloud ? "http://c309459.r59.cf1.rackcdn.com/" : "/saved/",
       files: list
     });
   }
 });
-
-
-
 
 
 app.listen( process.env.PORT || 3000 );
