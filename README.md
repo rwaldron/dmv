@@ -68,6 +68,7 @@ These were taken with **dmv**. When you click on the camera display surface, the
 <img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547437580.png">
 <img src="https://github.com/rwldrn/dmv/raw/master/yay/1330547472702.png">
 
+<i name="archaic"></i>
 ## Archaic Browsers Suck And Ruin The Web
 
 <img src="http://i.imgur.com/bW0QW.png">
