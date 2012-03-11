@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0-17 - 3/10/2012
+/*! dmv - v0.2.0-17 - 3/11/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -90,7 +90,8 @@ var  // Program initializers
 
     node.id = nodeName[0] + "_" + id;
 
-    node.style.width = window.innerWidth + "px";
+    // TODO: Refactor for scaling/resizing
+    // node.style.width = window.innerWidth + "px";
 
     // TODO: make this definable
     if ( !this.container ) {
@@ -106,6 +107,10 @@ var  // Program initializers
           node.height = other.videoHeight;
 
           node.style.visibility = "hidden";
+
+          // set container width to center the video
+          // margin: 0 auto
+          this.container.style.width = other.videoWidth + "px";
         } else {
           setTimeout( check, 10 );
         }
