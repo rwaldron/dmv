@@ -16,7 +16,16 @@ $(function() {
   // Show Photobooth
   DMV.init( "#container", socket );
 
-  $("#take-photo").on( "click", DMV.operator.capture.bind( DMV.operator ) );
+  $("#take-photo").on( "click", function() {
+    DMV.operator.capture(function( dataURI ) {
+      $saved.prepend(
+        [
+          "<li><a href='" + dataURI + "' target='_blank'>",
+          "<img src='" + dataURI + "'></a></li>"
+        ].join("")
+      );
+    });
+  });
 
   // List Photos
 
@@ -34,6 +43,7 @@ $(function() {
         // TODO: be less sloppy about this DOM access
         url = data.path + file;
 
+        $saved.children(":first").remove();
         $saved.prepend(
           [
             "<li><a href='" + url + "' target='_blank'>",

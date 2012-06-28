@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0-24 - 6/28/2012
+/*! dmv - v0.2.0-25 - 6/28/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -65,7 +65,7 @@ var  // Program initializers
     this.context.drawImage( this.media, 0, 0, this.canvas.width, this.canvas.height );
   };
 
-  Operator.prototype.capture = function() {
+  Operator.prototype.capture = function( callback ) {
     var capture = this.canvas.toDataURL();
     //   ,
     //     image = document.querySelector( "#i_" + this.id );
@@ -79,8 +79,11 @@ var  // Program initializers
     // Dispatch a "capture" event to the socket
     this.socket.emit( "capture", {
       id: this.id,
-      captured: this.canvas.toDataURL()
+      captured: capture
     });
+
+
+    callback( capture );
   };
 
   // Create an HTML element fixture
