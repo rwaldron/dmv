@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0-29 - 8/20/2012
+/*! dmv - v0.3.0 - 8/20/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -41,12 +41,18 @@ var  // Program initializers
     // Store datauri's received from stream
     this.dataUri = "";
 
-    navigator.getUserMedia({ video: true, audio: true }, function( raw, stream ) {
-    //getUserMedia("video, audio", function( stream ) {
+
+    navigator.getUserMedia({
+      video: true
+    }, function( raw ) {
+      var stream;
+
+      if ( raw.label && raw.readyState === 1 ) {
+        stream = window.URL.createObjectURL( raw );
+      }
+
       // Attach user media stream to video container source
-
-      this.media.src = raw.currentTime !== undefined ? raw : stream;
-
+      this.media.src = stream && stream || raw;
       this.media.play();
 
       // When video signals that it has loadedmetadata, begin "playing"
@@ -59,7 +65,10 @@ var  // Program initializers
         this.draw();
       }.bind(this), false);
 
-    }.bind(this));
+    }.bind(this),
+    function() {
+      console.log(arguments);
+    });
   };
 
   Operator.prototype.draw = function() {
@@ -149,7 +158,14 @@ var  // Program initializers
       this.listen( DMV.operator.media );
     },
     listen: function( media ) {
-      media.addEventListener( "click", DMV.operator.capture.bind( DMV.operator ), false );
+
+      if ( !media ) {
+        setTimeout(function() {
+          DMV.listen(media);
+        }, 10);
+      } else {
+        media.addEventListener( "click", DMV.operator.capture.bind( DMV.operator ), false );
+      }
     }
   };
 
