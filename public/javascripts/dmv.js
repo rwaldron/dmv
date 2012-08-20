@@ -1,4 +1,4 @@
-/*! dmv - v0.2.0-27 - 7/2/2012
+/*! dmv - v0.2.0-29 - 8/20/2012
 * https://github.com/rwldrn/dmv
 * Copyright (c) 2012 Rick Waldron <waldron.rick@gmail.com>; Licensed MIT */
 
@@ -45,7 +45,9 @@ var  // Program initializers
     //getUserMedia("video, audio", function( stream ) {
       // Attach user media stream to video container source
 
-      this.media.src = stream && stream || raw;
+      this.media.src = raw.currentTime !== undefined ? raw : stream;
+
+      this.media.play();
 
       // When video signals that it has loadedmetadata, begin "playing"
       this.media.addEventListener( "loadedmetadata", function() {
